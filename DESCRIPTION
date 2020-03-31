@@ -1,11 +1,18 @@
 Package: HMBGR
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: WCU/WWU Human MicroBiome Group R Package
+Version: 0.0.0.9000
+Authors@R: person("Zane", "Billings", email = "wz.billings@gmail.com", 
+    role = c("aut", "cre"))
+Maintainer: Zane Billings <wz.billings@gmail.com>
+Description: Provides functions for exploring logistic growth time series data,
+    including generating sample data, fitting OLS models to the data to predict
+    parameters, and plotting. Currently supports two-parameter and reduced one-
+    parameter versions of the single population logistic growth model.
+License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports:
+    MASS,
+    deSolve
+Depends: R (>= 3.6.0)
