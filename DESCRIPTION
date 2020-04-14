@@ -9,10 +9,13 @@ Description: Provides functions for exploring logistic growth time series data,
     including generating sample data, fitting OLS models to the data to predict
     parameters, and plotting. Currently supports two-parameter and reduced one-
     parameter versions of the single population logistic growth model.
-License: GPL-2 | GPL-3
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
     MASS,
-    deSolve
+    deSolve,
+    graphics,
+    stats
 Depends: R (>= 3.6.0)
+RoxygenNote: 7.1.0
