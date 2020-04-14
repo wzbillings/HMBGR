@@ -26,8 +26,7 @@
 #' @export
 #'
 generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
-                                   method = "analytic", make_plot = FALSE,
-                                   as_df = FALSE) {
+                                   method = "analytic", make_plot = FALSE) {
   # This function generates time-series data modeling logistic growth based on
   # the input parameters.
 
@@ -54,11 +53,11 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
       stop("Method not defined. Check documentation for allowable methods.")
     }
     # Reduced and make_plot arguments must be logicals.
-    if (!(mode(reduced) == "logical" && mode(make_plot) == "logical")) {
+    if (!(mode(make_plot) == "logical")) {
       stop("The arguments 'reduced' and 'make_plot' must be TRUE or FALSE.")
     }
     # If not reduced model, K must be positive numeric.
-    if (!reduced && (K <= 0 || mode(K) != "numeric")) {
+    if (K <= 0 || mode(K) != "numeric") {
       stop("If you are not using the dimensionless model, K must be a positive
            numeric value.")
     }
@@ -69,35 +68,35 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
   # Choose solving method and solve
   if (method == "analytic" | method == "a") {
     # use analytic method
-    P <- solve_logistic_equation(P_naught, K, r, t)
-    P[1] <- P_naught
+    P <- solve_logistic_equation(P0, K, r, t)
+    P[1] <- P0
   } else if (method == "discretized" | method == "d") {
     # use discrete method
     P <- numeric(length(t))
-    P[1] <- P_naught
+    P[1] <- P0
     for (j in 2:length(t)) {
       P[j] <- P[j - 1] + r*P[j - 1] * (1 - P[j - 1]/K) * time_step
     }
   } else if (method == "RK4" | method == "r") {
     # use RK4 ode solver
     solver_output <- deSolve::ode(
-      y = c(P = P_naught),
+      y = c(P = P0),
       times = seq(from = 0, to = max_t, by = time_step),
       func = calculate_logistic_derivative,
-      parms = c(r = r, K = K)
+      parms = c("r" = r, "K" = K)
     )
     P <- as.data.frame(solver_output)$P
   }
 
   # Add noise if needed
   if (noise != 0) {
-    noise_vector <- rnorm(length(output$P), mean = 0, sd = noise * K)
+    noise_vector <- stats::rnorm(length(output$P), mean = 0, sd = noise * K)
     P <- P + noise_vector
   }
 
   # Make plot if requested
   if (make_plot) {
-    plot(x = t, y = P, ylab = "P(t)", type = "b")
+    graphics::plot(x = t, y = P, ylab = "P(t)", type = "b")
   }
 
   # Prep and return outputs

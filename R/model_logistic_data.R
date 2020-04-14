@@ -25,7 +25,6 @@
 #' @return A named numeric vector of parameters which were estimated.
 #' @export
 #'
-#' @examples
 model_logistic_data <- function(df, smoothing = 0, dimensionless = TRUE,
                                 make_plot = FALSE, print_res = FALSE) {
   # This function uses a derived least-squares method with an Euler
@@ -63,13 +62,13 @@ model_logistic_data <- function(df, smoothing = 0, dimensionless = TRUE,
 
   # Check if model is dimensionless or not, and calculate most of the model.
   # First, calculate b vector since it is the same either way.
-  b <- (1/time_step)*log(P_forward/P_present)
+  b <- (1/ts)*log(P_forward/P_present)
 
   # Generate matrix A for model. Different based on number of parameters.
   if (dimensionless) {
     A <- 1 - P_present
   } else {
-    b <- (1/time_step)*log(P_forward/P_present)
+    b <- (1/ts)*log(P_forward/P_present)
     A <- cbind(rep(1, length(P_present)), -P_present)
   }
 
@@ -80,7 +79,7 @@ model_logistic_data <- function(df, smoothing = 0, dimensionless = TRUE,
     params <- MASS::ginv(ATA) %*% t(A) %*% b
   } else {
     ID <- diag(nrow(ATA))
-    params <- MASS::ginv(ATA + smoothing_value * ID) %*% t(A) %*% b
+    params <- MASS::ginv(ATA + smoothing * ID) %*% t(A) %*% b
   }
 
   # Collect outputs.
@@ -101,7 +100,7 @@ model_logistic_data <- function(df, smoothing = 0, dimensionless = TRUE,
 
   # Print results and/or make plot.
   if (make_plot == TRUE) {
-    plot(1 - P_present, b)
+    graphics::plot(1 - P_present, b)
   }
 
   if (print_res == TRUE) {
