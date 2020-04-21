@@ -21,12 +21,15 @@
 #' @param make_plot Logical; if TRUE, prints a plot of the linearized data.
 #' @param print_res Logical; if TRUE, the values of the estimated parameters
 #'     are printed to the console.
+#' @param ts Numeric; the step between values of time. If not specified, this is
+#'     calculated as the max time over the number of times.
 #'
 #' @return A named numeric vector of parameters which were estimated.
 #' @export
 #'
 model_logistic_data <- function(df, smoothing = 0, dimensionless = TRUE,
-                                make_plot = FALSE, print_res = FALSE) {
+                                make_plot = FALSE, print_res = FALSE,
+                                ts = NULL) {
   # This function uses a derived least-squares method with an Euler
   #  discretization in order to solve for the parameter(s) of the logistic
   #  equation modeling the inputted data.

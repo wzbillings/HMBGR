@@ -96,7 +96,7 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
 
   # Make plot if requested
   if (make_plot) {
-    graphics::plot(x = t, y = P, ylab = "P(t)", type = "b")
+    graphics::plot(x = t, y = P, ylab = "P(t)", type = "l")
   }
 
   # Prep and return outputs
