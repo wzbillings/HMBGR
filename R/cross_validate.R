@@ -30,7 +30,7 @@ cross_validate <- function(data, k = 3, time_step = NULL, reduced = TRUE,
   time_step = max(data$t) / length(data$t)
 
   # Generate possible combinations of parts for later.
-  combos <- combn(1:k, k-1, simplify = F)
+  combos <- utils::combn(1:k, k-1, simplify = F)
 
   #-----------------------------------------------------------------------------
   # Construct a random partition into k parts of the data
@@ -74,7 +74,7 @@ cross_validate <- function(data, k = 3, time_step = NULL, reduced = TRUE,
     test <- parts[[not_used]]
 
     # Model the data, specify time step manually.
-    mod <- model_logistic_data(df,
+    mod <- model_logistic_data(data,
                                ts = time_step,
                                dimensionless = reduced,
                                smoothing = lambda)
