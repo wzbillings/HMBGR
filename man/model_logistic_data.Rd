@@ -9,7 +9,8 @@ model_logistic_data(
   smoothing = 0,
   dimensionless = TRUE,
   make_plot = FALSE,
-  print_res = FALSE
+  print_res = FALSE,
+  ts = NULL
 )
 }
 \arguments{
@@ -29,6 +30,9 @@ two parameters, r and K, which are estimated.}
 
 \item{print_res}{Logical; if TRUE, the values of the estimated parameters
 are printed to the console.}
+
+\item{ts}{Numeric; the step between values of time. If not specified, this is
+calculated as the max time over the number of times.}
 }
 \value{
 A named numeric vector of parameters which were estimated.

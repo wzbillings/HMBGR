@@ -16,6 +16,7 @@ Imports:
     MASS,
     deSolve,
     graphics,
-    stats
+    stats,
+    utils
 Depends: R (>= 3.6.0)
 RoxygenNote: 7.1.0
