@@ -35,29 +35,29 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
     if ((P0 <= 0) | (!is.numeric(P0))) {
       stop("The parameter 'P0' must be a positive numeric value.")
     }
-    if (r <= 0 | mode(r != "numeric")) {
+    if (r <= 0 | (!is.numeric(r))) {
       stop("The parameter 'r' must be a positive numeric value.")
     }
-    if (max_t <= 0 | mode(max_t != "numeric")) {
+    if (max_t <= 0 | (!is.numeric(max_t))) {
       stop("The parameter 'max_t' must be a positive numeric value.")
     }
-    if (time_step <= 0 | mode(time_step != "numeric")) {
+    if (time_step <= 0 | (!is.numeric(time_step))) {
       stop("The parameter 'time_step' must be a positive numeric value.")
     }
     # If noise < 0, stop
-    if (noise < 0 | mode(noise != "numeric")) {
+    if (noise < 0 | (!is.numeric(noise))) {
       stop("The noise parameter must be a nonnegative numeric value.")
     }
     # Method must come from a specific list of allowed methods.
     if (!(method %in% list("analytic", "a", "discretized", "d", "RK4", "r"))) {
       stop("Method not defined. Check documentation for allowable methods.")
     }
-    # Reduced and make_plot arguments must be logicals.
-    if (!(mode(make_plot) == "logical")) {
+    # make_plot argument must be logicals.
+    if (!is.logical(make_plot)) {
       stop("The arguments 'reduced' and 'make_plot' must be TRUE or FALSE.")
     }
-    # If not reduced model, K must be positive numeric.
-    if (K <= 0 || mode(K) != "numeric") {
+    # K must be positive numeric.
+    if (K <= 0 || !is.numeric(K)) {
       stop("If you are not using the dimensionless model, K must be a positive
            numeric value.")
     }
