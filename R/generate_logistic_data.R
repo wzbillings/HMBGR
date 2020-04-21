@@ -32,7 +32,7 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
 
   # Validate inputs:
     # All numerical inputs must be strictly positive numeric values.
-    if (P0 <= 0 | mode(P0 != "numeric")) {
+    if ((P0 <= 0) | (!is.numeric(P0))) {
       stop("The parameter 'P0' must be a positive numeric value.")
     }
     if (r <= 0 | mode(r != "numeric")) {
