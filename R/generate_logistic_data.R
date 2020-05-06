@@ -90,7 +90,7 @@ generate_logistic_data <- function(P0, K = 1, r, max_t, time_step, noise = 0,
 
   # Add noise if needed
   if (noise != 0) {
-    noise_vector <- stats::rnorm(length(output$P), mean = 0, sd = noise * K)
+    noise_vector <- stats::rnorm(length(P), mean = 0, sd = noise * K)
     P <- P + noise_vector
   }
 
